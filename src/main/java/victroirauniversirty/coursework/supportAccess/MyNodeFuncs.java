@@ -9,8 +9,8 @@ package victroirauniversirty.coursework.supportAccess;
  * @author DROID
  */
 public interface MyNodeFuncs {
-    void AddAtFirst(int Value);
-    void RemoteAtlast(int Value);
+    void AddAtFirst(MyNode Value);
+    void RemoteAtlast(MyNode Value);
     void AddAtpositionx(int from , int To);
-    boolean removeAtPositionx(int from , int To);
+    boolean removeAtPositionx(MyNode node);
 }

@@ -16,7 +16,7 @@ public class BusinessLogic {
     //nodelists is the number of boxes we have we implementeed the doubly linked list we ahll be able to sort it ad adn remove based on the previous na dnext ndoes
     
     private final MyNode[] NodeLists ;
-    private final DoublyList MynodesFunc;
+    private final DoublyList MynodesFunc = null;
     public BusinessLogic(){
         /*here we are constructint he array to be exactly 99 from 0-99 so it holds 100 nubers*/
     
@@ -39,9 +39,16 @@ public class BusinessLogic {
 
      }
     private void snakesDecider(){
+       var SnakeNodes = this.DiceRoller();
+       for(int i=0;i++;i<=SnakeNodes){
+        
+        var res = this.MynodesFunc.GenerateSnake();
+       // this.MynodesFunc./ search the node and replace it 
+       }
+       
         //define the boxes ro be called snaekes so that you define there to and from demotion
-        NodeLists[0];
-        int [] listOfSnakesboxes = new [3];
+//        NodeLists[0];
+  //      int [] listOfSnakesboxes = new [3];
         //listofSnakesBoxes.
     }
     private void LadersDecider(){

@@ -4,6 +4,8 @@
  */
 package victroirauniversirty.coursework.supportAccess;
 
+import java.util.Random;
+
 /**
  *
  * @author DROID
@@ -11,29 +13,29 @@ package victroirauniversirty.coursework.supportAccess;
 public class DoublyList implements MyNodeFuncs{
    private MyNode Ogutwe;
     @Override
-    public void AddAtFirst(int value) {
+    public void AddAtFirst(MyNode value) {
         // addin at the end of the nodelist
         //rules of a douby it has a previous and next so we shall implement that in here
-      MyNode Node = new MyNode(value);
+      value.PreviousNode = null;
       //value is the data weare insering into the list 
-     
+    
       //inserting at the end of the list
       if(Ogutwe==null){
-            Ogutwe=Node;
+            Ogutwe=value;
       }
       // isnerint at the begining
      
     }
 
     @Override
-    public void RemoteAtlast(int Value) {
+    public void RemoteAtlast(MyNode Value) {
         if (this.Ogutwe==null){
          throw new UnsupportedOperationException("The Node is empty"); 
         }
-        MyNode RemovableNode = new MyNode(Value);
-        while(Ogutwe.NextNode!=null){
+        
+        while(Value.NextNode!=null){
              if(Ogutwe.NextNode == null){
-            RemovableNode = Ogutwe;
+             Ogutwe = Value;
             }
         }
       
@@ -73,5 +75,44 @@ public class DoublyList implements MyNodeFuncs{
          node.PreviousNode = null;
          return true;
     }
+     public MyNode move(int diceRoll) {
+         MyNode node = new MyNode(diceRoll);
+        for (int i = 0; i < diceRoll; i++) {
+            if (Ogutwe.NextNode != null) {
+                //not last /..
+                
+                Ogutwe = Ogutwe.NextNode;
+            } else {
+                break; // Reached end of board
+            }
+        }
+
+        // Check if landed on a snake or ladder
+      return node;
+    }
+  
+    public MyNode GenerateLAdder(){
+       var newNode = NodeMaker();
+       newNode.isLadder = true;
+        return newNode;
+    }
+    public MyNode GenerateSnake(){
+       var newNode = NodeMaker();
+       newNode.isSnake = true;
+        return newNode;
+    }
+    private static int RandomMaker(){
+    return new Random().nextInt(100) + 1;
+    }
+    private static MyNode NodeMaker(){
+        var value = RandomMaker();
+         MyNode newNode = new MyNode(value);
+        var res = RandomMaker();
+        while(value==res||res>20){
+         res = RandomMaker();
     
+        }
+        newNode.PositionShift = res;
+       return newNode;
+    }
 }

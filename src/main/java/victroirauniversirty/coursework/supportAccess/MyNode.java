@@ -11,13 +11,19 @@ package victroirauniversirty.coursework.supportAccess;
 public class MyNode {
     int value;
     // the next bvalue
+    Boolean isSnake;
+    Boolean isLadder;
     MyNode NextNode;
     // the previous node 
+    int PositionShift;
     MyNode PreviousNode;
     public MyNode(int Val){
         this.NextNode = null;
         this.PreviousNode = null;
         this.value = Val;
+        this.isLadder = false;
+        this.isSnake = true;
+        this.PositionShift = 0;
         // class constructore
         //this is for a doubly where we have the 
         /// the value so thus case the value is the head 
