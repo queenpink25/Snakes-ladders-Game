@@ -11,9 +11,8 @@ package victroirauniversirty.coursework;
 public class CourseWork {
 
     public static void main(String[] args) {
-        
-      var Mygui = new MYGui();
-      Mygui.setVisible(true);
+        GuiClass cls = new GuiClass();
+      
       
     }
    
