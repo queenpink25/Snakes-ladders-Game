@@ -11,8 +11,8 @@ package victroirauniversirty.coursework.supportAccess;
 public class MyNode {
     int value;
     // the next bvalue
-    Boolean isSnake;
-    Boolean isLadder;
+   public Boolean isSnake;
+   public Boolean isLadder;
     MyNode NextNode;
     // the previous node 
     int PositionShift;
@@ -29,4 +29,22 @@ public class MyNode {
         /// the value so thus case the value is the head 
     
 }
+    public int PostionShiftGetter(){
+        return this.PositionShift;
+    }
+    public void positionShiftSetter(int val){
+       this.PositionShift = val;
+    }
+      public MyNode NextMyNodeGetter(){
+        return this.NextNode;
+    }
+    public void NextNodeSetter (MyNode val){
+       this.NextNode = val;
+    }
+    public MyNode PreviousMyNodeGetter(){
+        return this.PreviousNode;
+    }
+    public void PreviousMyNodeSetter(MyNode val){
+       this.PreviousNode = val;
+    }
 }

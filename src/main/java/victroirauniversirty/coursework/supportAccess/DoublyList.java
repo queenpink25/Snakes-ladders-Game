@@ -94,6 +94,7 @@ public class DoublyList implements MyNodeFuncs{
     public MyNode GenerateLAdder(){
        var newNode = NodeMaker();
        newNode.isLadder = true;
+       
         return newNode;
     }
     public MyNode GenerateSnake(){

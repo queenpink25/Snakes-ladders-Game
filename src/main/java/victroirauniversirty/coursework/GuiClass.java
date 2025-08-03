@@ -50,7 +50,8 @@ public class GuiClass {
        GameStarter.addActionListener(e -> {
              if(!DiceRoller.isEnabled()){
                  DiceRoller.setEnabled(true);
-                  GameStarter.setText("Role Dice");
+                  GameStarter.setText("Stop Dice");
+                 // GameStarter.setBackground(Color.red);
              }
              else{
                    DiceRoller.setEnabled(false);
@@ -69,6 +70,11 @@ public class GuiClass {
      //pane.setBackground(Color.red);
      return pane;
     }
+     /*private JPanel GameBg(){
+      var Jp = new JPanel();
+      Jp
+      return Jp;
+     } */
     private void MainFrame(){
      JFrame mainframe = new JFrame("Course Work");
      mainframe.pack();
@@ -79,5 +85,6 @@ public class GuiClass {
      mainframe.setResizable(false);
      
     }
+   
 }
 

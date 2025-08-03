@@ -16,10 +16,10 @@ public class BusinessLogic {
     //nodelists is the number of boxes we have we implementeed the doubly linked list we ahll be able to sort it ad adn remove based on the previous na dnext ndoes
     
     public final MyNode[] NodeLists ;
-    private final DoublyList MynodesFunc = null;
+    private final DoublyList MynodesFunc;
     public BusinessLogic(){
         /*here we are constructint he array to be exactly 99 from 0-99 so it holds 100 nubers*/
-    
+     this.MynodesFunc = new DoublyList();
      this.NodeLists  = new MyNode[100];
     }
     public int DiceRoller(){
@@ -42,7 +42,9 @@ public class BusinessLogic {
        var SnakeNodes = DiceRoller();
         for(int i=0;i>=SnakeNodes;i++){
 
-         var res = this.MynodesFunc.GenerateSnake();
+         MyNode res =this.MynodesFunc.GenerateSnake();
+         res.positionShiftSetter(PositionToFrom(res.PostionShiftGetter(),res));
+         this.NodeLists[res.PostionShiftGetter()]=res;
         // this.MynodesFunc./ search the node and replace it 
         }
        
@@ -56,9 +58,21 @@ public class BusinessLogic {
         for(int i=0;i>=LaderNodes;i++){
 
          var res = this.MynodesFunc.GenerateLAdder();
+         res.positionShiftSetter(PositionToFrom(res.PostionShiftGetter(),res));
+         this.NodeLists[res.PostionShiftGetter()]=res;
         // this.MynodesFunc./ search the node and replace it 
         }
  //define the boxes ro be called snaekes so that you define there to and from promotion
     
     }   
-}
+    private static int PositionToFrom(int currentPosition,MyNode Node){
+        if(Node.isSnake){
+    return (new Random().nextInt(currentPosition)-10);
+        } 
+        if(Node.isLadder){
+            return (new Random().nextInt(currentPosition)+10);
+        }
+      
+        return 0;
+                }
+    }
