@@ -11,7 +11,10 @@ import java.util.Random;
  * @author DROID
  */
 public class DoublyList implements MyNodeFuncs{
-   private MyNode Ogutwe;
+   public MyNode Ogutwe;
+   public DoublyList(int i){
+   this.Ogutwe = new MyNode(i);
+   }
     @Override
     public void AddAtFirst(MyNode value) {
         // addin at the end of the nodelist
@@ -26,7 +29,15 @@ public class DoublyList implements MyNodeFuncs{
       // isnerint at the begining
      
     }
-
+    public void AddAtLast(MyNode Value){
+       Value.NextNode = null;
+      //value is the data weare insering into the list 
+    
+      //inserting at the end of the list
+      if(Ogutwe==null){
+            Ogutwe=Value;
+      }
+    }
     @Override
     public void RemoteAtlast(MyNode Value) {
         if (this.Ogutwe==null){
@@ -43,14 +54,14 @@ public class DoublyList implements MyNodeFuncs{
     }
 
     @Override
-    public void AddAtpositionx(int from ,int To) {
+    public MyNode AddAtpositionx(int from ,int To) {
         MyNode posNode = new MyNode(0);
           MyNode FromsNode = new MyNode(from);
           MyNode tosNode = new MyNode(To);
         Ogutwe.NextNode = tosNode;
         Ogutwe.PreviousNode = FromsNode;
         Ogutwe = posNode;
-        
+        return Ogutwe;
        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

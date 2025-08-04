@@ -7,6 +7,7 @@ package victroirauniversirty.coursework;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -63,8 +64,31 @@ public class GuiClass {
          @Override
          public void actionPerformed(ActionEvent e) {
              int roler = Logicdefault.DiceRoller();
+             int nume = new Random(10).nextInt();
+             /// ned to get current dice positions;
              text.setText(String.valueOf(roler));
-             //System.out.println(Logicdefault.NodeLists.length);
+             //Logicdefault.NodeLists[roler];
+            /*for(int i=0; i<Logicdefault.NodeLists.length;i++){
+                 System.out.println(Logicdefault.NodeLists[i]);
+                if(Logicdefault.NodeLists[i].isLadder){
+                 System.out.println(Logicdefault.NodeLists[i].isLadder);
+                  System.out.println(Logicdefault.NodeLists[i].PostionShiftGetter());
+                }
+               if(Logicdefault.NodeLists[i].isSnake){
+               System.out.println(Logicdefault.NodeLists[i].isSnake);
+                System.out.println(Logicdefault.NodeLists[i].PostionShiftGetter());
+               }
+                 
+            }*/
+            if(Logicdefault.MoveDice(nume, roler).isSnake){
+            System.out.println("Demotion");
+            }
+             if(Logicdefault.MoveDice(nume, roler).isLadder){
+            System.out.println("Promotion");
+            }
+             else{
+                 System.out.println("Bingo");
+             }
          }
      });
      //pane.setBackground(Color.red);
@@ -85,6 +109,6 @@ public class GuiClass {
      mainframe.setResizable(false);
      
     }
-   
+    
 }
 

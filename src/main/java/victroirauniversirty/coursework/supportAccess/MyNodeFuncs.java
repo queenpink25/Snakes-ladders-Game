@@ -11,6 +11,6 @@ package victroirauniversirty.coursework.supportAccess;
 public interface MyNodeFuncs {
     void AddAtFirst(MyNode Value);
     void RemoteAtlast(MyNode Value);
-    void AddAtpositionx(int from , int To);
+    MyNode AddAtpositionx(int from , int To);
     boolean removeAtPositionx(MyNode node);
 }

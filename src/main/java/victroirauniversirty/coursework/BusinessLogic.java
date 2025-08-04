@@ -16,12 +16,29 @@ public class BusinessLogic {
     //nodelists is the number of boxes we have we implementeed the doubly linked list we ahll be able to sort it ad adn remove based on the previous na dnext ndoes
     
     public final MyNode[] NodeLists ;
-    private final DoublyList MynodesFunc;
+    public DoublyList MynodesFunc = null;
     public BusinessLogic(){
         /*here we are constructint he array to be exactly 99 from 0-99 so it holds 100 nubers*/
-     this.MynodesFunc = new DoublyList();
-     this.NodeLists  = new MyNode[100];
-    }
+        this.NodeLists = new MyNode[100];
+     //this.MynodesFunc = new DoublyList(i);
+     for(int i=0;i<NodeLists.length;i++){
+         MynodesFunc = new DoublyList(i);
+         if(i==0){
+           MynodesFunc.AddAtFirst(this.MynodesFunc.Ogutwe);
+            }
+        if(i==99){
+            MynodesFunc.AddAtLast(this.MynodesFunc.Ogutwe);
+         }
+        NodeLists[i]= MynodesFunc.AddAtpositionx(i--, i++);
+         }
+     this.LadersDecider();
+     this.snakesDecider();
+     }
+     public MyNode MoveDice(int CurrentPosition,int DiceNumber){
+         var res = CurrentPosition+DiceNumber;
+     return NodeLists[res];
+     }
+    
     public int DiceRoller(){
         return new Random().nextInt(6) + 1;
     }
