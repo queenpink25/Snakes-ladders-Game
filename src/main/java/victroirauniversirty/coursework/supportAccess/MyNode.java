@@ -22,7 +22,7 @@ public class MyNode {
         this.PreviousNode = null;
         this.value = Val;
         this.isLadder = false;
-        this.isSnake = true;
+        this.isSnake = false;
         this.PositionShift = 0;
         // class constructore
         //this is for a doubly where we have the 

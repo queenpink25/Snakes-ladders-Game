@@ -5,14 +5,18 @@
 package victroirauniversirty.coursework;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import victroirauniversirty.coursework.supportAccess.MyNode;
 
 /**
  *
@@ -20,16 +24,23 @@ import javax.swing.JTextField;
  */
 public class GuiClass {
     private final BusinessLogic Logicdefault = new BusinessLogic();
+    private int CurrentPosition;
     public GuiClass(){
-     
+        this.CurrentPosition = 0;
+   
     MainFrame();
 }
     private JPanel  MainPanel(){
    
      JPanel pane = new JPanel();
    
-     pane.setSize(600,600);
+     pane.setPreferredSize(new Dimension(600,500));
      pane.setLayout(null);
+     JPanel BgPAne = new JPanel();
+     BgPAne.setSize(450,500);
+     BgPAne.setLayout(null);
+     BgPAne.setBackground(Color.BLACK);
+     pane.add(BgPAne);
      // button shuffler
      JButton GameStarter = new JButton();
      GameStarter.setBounds(450, 10,100 ,30 );
@@ -52,6 +63,8 @@ public class GuiClass {
              if(!DiceRoller.isEnabled()){
                  DiceRoller.setEnabled(true);
                   GameStarter.setText("Stop Dice");
+                  Constructors(BgPAne);
+                  Logicdefault.boxpopulator();
                  // GameStarter.setBackground(Color.red);
              }
              else{
@@ -63,32 +76,15 @@ public class GuiClass {
       DiceRoller.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
-             int roler = Logicdefault.DiceRoller();
-             int nume = new Random(10).nextInt();
-             /// ned to get current dice positions;
-             text.setText(String.valueOf(roler));
-             //Logicdefault.NodeLists[roler];
-            /*for(int i=0; i<Logicdefault.NodeLists.length;i++){
-                 System.out.println(Logicdefault.NodeLists[i]);
-                if(Logicdefault.NodeLists[i].isLadder){
-                 System.out.println(Logicdefault.NodeLists[i].isLadder);
-                  System.out.println(Logicdefault.NodeLists[i].PostionShiftGetter());
-                }
-               if(Logicdefault.NodeLists[i].isSnake){
-               System.out.println(Logicdefault.NodeLists[i].isSnake);
-                System.out.println(Logicdefault.NodeLists[i].PostionShiftGetter());
-               }
-                 
-            }*/
-            if(Logicdefault.MoveDice(nume, roler).isSnake){
-            System.out.println("Demotion");
-            }
-             if(Logicdefault.MoveDice(nume, roler).isLadder){
-            System.out.println("Promotion");
-            }
-             else{
-                 System.out.println("Bingo");
-             }
+            int roler = Logicdefault.DiceRoller();  // roll the dice
+            text.setText(String.valueOf(roler));     // show dice value
+            // here i have to moe the deivce
+            var res = Logicdefault.MoveDice(CurrentPosition, roler);
+// i move the diece
+    
+
+            MoveDiceOnBoard(res, BgPAne);
+           
          }
      });
      //pane.setBackground(Color.red);
@@ -104,11 +100,87 @@ public class GuiClass {
      mainframe.pack();
      var Cpm = MainPanel();
      mainframe.add(Cpm);
+     mainframe.setLocationRelativeTo(null);
      mainframe.setVisible(true);
-     mainframe.setSize(800,600);
+     mainframe.setSize(800,500+ mainframe.getInsets().top);
      mainframe.setResizable(false);
      
     }
-    
+    private void Constructors(JPanel pane){
+        pane.setLayout(new GridLayout(10, 10,2,2));
+        var height = pane.getSize().height;//columns
+          var Wodth = pane.getSize().width;//rows
+          for(int i=0; i<10;i++){
+              
+              //for rows
+              for(int b=0;b<10;b++){
+                  JButton btn = new JButton(i+""+b);
+                  
+                  btn.setSize(Wodth/10, height/10);
+                  btn.setLayout(null);
+                  btn.setMargin(new Insets(0,0,0,0));
+                  
+                  btn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
+                  //btn.setText(String.valueOf(i)+String.valueOf(b));
+                  
+                  btn.addActionListener(e -> {
+                System.out.println("Button " + btn.getText() + " clicked");
+                btn.setBackground(Color.MAGENTA);
+                        });
+
+                  btn.setForeground(Color.white);
+                  btn.setBackground(Color.LIGHT_GRAY);
+                  if(i==0 && b==0){
+                  btn.setText("Start");
+                  btn.setBackground(Color.GREEN);
+                  }
+                  if(i==9 && b==9){
+                  btn.setText("End");
+                  btn.setBackground(Color.red);
+                  }
+                  pane.add(btn);
+              }
+              
+          }
+      System.out.println(pane.getSize());
+    }
+    private void MoveDiceOnBoard(MyNode res,JPanel pane){
+        var btnslists = pane.getComponents();
+        if(res.isSnake){
+            //this.CurrentPosition-=res.PostionShiftGetter();
+            System.out.println("Demotion");
+        }
+        else if(res.isLadder){
+            System.out.println("Promotion");
+            //this.CurrentPosition+=res.PostionShiftGetter();
+            
+        }
+        for(Component comp : btnslists){
+            comp.setBackground(Color.lightGray);
+            if(comp instanceof JButton btn){ 
+                
+                var btntext = btn.getText();
+                if("Start".equals(btntext)){
+                    System.out.println("started");
+                    continue;
+                }
+                if("End".equals(btntext)){
+                    System.out.println("Ended");
+                    continue;
+                }
+                
+                int post = Integer.parseInt(btntext);
+                if(  this.CurrentPosition<=0){
+                    continue;
+                }
+                if(  this.CurrentPosition==post){
+                    
+                    btn.setBackground(Color.cyan);
+                    System.out.println(  this.CurrentPosition);
+                }
+            }
+        }
+        System.out.println(  this.CurrentPosition);
+    }
 }
 

@@ -42,13 +42,11 @@ public class BusinessLogic {
     public int DiceRoller(){
         return new Random().nextInt(6) + 1;
     }
-     public Dimension boxpopulator(Dimension sizes){ 
+     public void boxpopulator(){ 
         
-         // the boxes will be of sizes ?? dimension sizes of hiegh
-         System.out.println(sizes.height/9);
-          // the boxes will be of sizes ?? dimension sizes of width
-         System.out.println(sizes.width/9);
-          return new Dimension(sizes.height/9,sizes.width/9);
+        this.LadersDecider();
+        this.snakesDecider();
+         
      }
      public int MoveAction(int dicechance,MyNode currentnode){
         return 0;
@@ -62,8 +60,10 @@ public class BusinessLogic {
          MyNode res =this.MynodesFunc.GenerateSnake();
          res.positionShiftSetter(PositionToFrom(res.PostionShiftGetter(),res));
          this.NodeLists[res.PostionShiftGetter()]=res;
+         res.isSnake = true;
         // this.MynodesFunc./ search the node and replace it 
         }
+        System.out.println(SnakeNodes);
        
         //define the boxes ro be called snaekes so that you define there to and from demotion
 //        NodeLists[0];
@@ -77,10 +77,12 @@ public class BusinessLogic {
          var res = this.MynodesFunc.GenerateLAdder();
          res.positionShiftSetter(PositionToFrom(res.PostionShiftGetter(),res));
          this.NodeLists[res.PostionShiftGetter()]=res;
+         res.isLadder = true;
         // this.MynodesFunc./ search the node and replace it 
         }
  //define the boxes ro be called snaekes so that you define there to and from promotion
-    
+      System.out.println(LaderNodes);
+       
     }   
     private static int PositionToFrom(int currentPosition,MyNode Node){
         if(Node.isSnake){
