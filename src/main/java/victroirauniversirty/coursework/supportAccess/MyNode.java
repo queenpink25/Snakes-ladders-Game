@@ -9,7 +9,7 @@ package victroirauniversirty.coursework.supportAccess;
  * @author DROID
  */
 public class MyNode {
-    int value;
+   public  int value;
     // the next bvalue
    public Boolean isSnake;
    public Boolean isLadder;

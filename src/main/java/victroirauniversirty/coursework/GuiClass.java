@@ -64,7 +64,7 @@ public class GuiClass {
                  DiceRoller.setEnabled(true);
                   GameStarter.setText("Stop Dice");
                   Constructors(BgPAne);
-                  Logicdefault.boxpopulator();
+                   Logicdefault.boxpopulator(BgPAne);
                  // GameStarter.setBackground(Color.red);
              }
              else{
@@ -123,10 +123,7 @@ public class GuiClass {
                   btn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
                   //btn.setText(String.valueOf(i)+String.valueOf(b));
                   
-                  btn.addActionListener(e -> {
-                System.out.println("Button " + btn.getText() + " clicked");
-                btn.setBackground(Color.MAGENTA);
-                        });
+                 
 
                   btn.setForeground(Color.white);
                   btn.setBackground(Color.LIGHT_GRAY);
@@ -146,41 +143,60 @@ public class GuiClass {
     }
     private void MoveDiceOnBoard(MyNode res,JPanel pane){
         var btnslists = pane.getComponents();
-        if(res.isSnake){
-            //this.CurrentPosition-=res.PostionShiftGetter();
+        // set the new node position'
+        this.CurrentPosition+=res.value;
+        System.out.println(res.value);
+        //
+        shuffle(btnslists, CurrentPosition);
+        try {
+            Thread.sleep(300);
+             if(res.isSnake){
+            this.CurrentPosition-=res.PostionShiftGetter();
+            
+            shuffle(btnslists, CurrentPosition);
             System.out.println("Demotion");
         }
         else if(res.isLadder){
             System.out.println("Promotion");
-            //this.CurrentPosition+=res.PostionShiftGetter();
-            
+            this.CurrentPosition+=res.PostionShiftGetter();
+            shuffle(btnslists, CurrentPosition);
+
         }
+        
+        } catch (InterruptedException ex) {
+            System.out.println(ex.getMessage());
+        }
+       
+        System.out.println(  this.CurrentPosition);
+    }
+    private void shuffle(Component[] btnslists , int newNumber){
         for(Component comp : btnslists){
-            comp.setBackground(Color.lightGray);
-            if(comp instanceof JButton btn){ 
-                
-                var btntext = btn.getText();
-                if("Start".equals(btntext)){
-                    System.out.println("started");
-                    continue;
-                }
-                if("End".equals(btntext)){
-                    System.out.println("Ended");
-                    continue;
-                }
-                
-                int post = Integer.parseInt(btntext);
-                if(  this.CurrentPosition<=0){
-                    continue;
-                }
-                if(  this.CurrentPosition==post){
+                comp.setBackground(Color.lightGray);
+                if(comp instanceof JButton btn){ 
                     
-                    btn.setBackground(Color.cyan);
-                    System.out.println(  this.CurrentPosition);
+                    var btntext = btn.getText();
+                    if("Start".equals(btntext)){
+                        System.out.println("started");
+                        continue;
+                    }
+                    if("End".equals(btntext)){
+                        System.out.println("Ended");
+                        continue;
+                    }
+                    
+                    int post = Integer.parseInt(btntext);
+                    if(newNumber<=0){
+                        continue;
+                    }
+                    if(newNumber==post){
+                        
+                        btn.setBackground(Color.cyan);
+                        System.out.println("the position is "+newNumber);
+                    }
                 }
             }
-        }
-        System.out.println(  this.CurrentPosition);
+    }
+    void Snakes2dGeneration(){
     }
 }
 

@@ -55,7 +55,7 @@ public class DoublyList implements MyNodeFuncs{
 
     @Override
     public MyNode AddAtpositionx(int from ,int To) {
-        MyNode posNode = new MyNode(0);
+        MyNode posNode = new MyNode(this.Ogutwe.value);
           MyNode FromsNode = new MyNode(from);
           MyNode tosNode = new MyNode(To);
         Ogutwe.NextNode = tosNode;
