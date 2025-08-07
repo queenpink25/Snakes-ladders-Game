@@ -17,3 +17,10 @@ public class CourseWork {
     }
    
 }
+// instructions for running the program
+// 1. Ensure you have Java installed and set up correctly.
+// 2. Open a terminal or command prompt.
+// 3. Navigate to the directory where your CourseWork.java file is located.
+// 4. Compile the Java file using the command:
+// javac CourseWork.java
+// 5. Run the compiled Java program using the command:
