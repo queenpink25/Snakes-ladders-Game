@@ -21,6 +21,7 @@ public class MyNode {
         this.NextNode = null;
         this.PreviousNode = null;
         this.value = Val;
+//      extra values that enforce business rules
         this.isLadder = false;
         this.isSnake = false;
         this.PositionShift = 0;

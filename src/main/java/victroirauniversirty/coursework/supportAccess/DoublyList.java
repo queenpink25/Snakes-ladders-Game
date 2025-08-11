@@ -114,7 +114,7 @@ public class DoublyList implements MyNodeFuncs{
         return newNode;
     }
     private static int RandomMaker(){
-    return new Random().nextInt(100) + 1;
+    return new Random().nextInt(98) + 1;
     }
     private static MyNode NodeMaker(){
         var value = RandomMaker();
