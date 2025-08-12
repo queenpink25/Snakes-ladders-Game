@@ -10,8 +10,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import victroirauniversirty.coursework.supportAccess.DoublyList;
 import victroirauniversirty.coursework.supportAccess.MyNode;
 /**
@@ -58,26 +62,48 @@ public class BusinessLogic {
     public int DiceRoller(){
         return new Random().nextInt(6) + 1;
     }
-     public void boxpopulator(JPanel pane){ 
+     public JComponent boxpopulator(JPanel pane){ 
         //MyNode[] nodeList = new MyNode[];
         //nodeList
         List<MyNode> specialKeysList = new LinkedList<>();
-     
+        JScrollPane Spane = new JScrollPane();
+         Spane.setBounds(550, 0, 200, 100);
        var Laders = this.LadersDecider();
        var Snakes = this.snakesDecider();
           specialKeysList.addAll(Laders);
           specialKeysList.addAll(Snakes);
           //need to draw 2d graphics only for the linked lists nodes
         Component[] comps  = pane.getComponents();
+        
+         JPanel labelPanel = new JPanel();
+        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS)); 
         for(int i =0; i<specialKeysList.size();i++){
             var Mnode = specialKeysList.get(i);
             DrawGraphics(Mnode,comps, (GameBoardPanel) pane);
+            JLabel lbl = new JLabel();
+            if(Mnode.isLadder){
+            lbl.setBackground(Color.blue);
+            lbl.setText("Btn "+Mnode.PostionShiftGetter()+" Laddr Upby "+Mnode.value);
+             lbl.setOpaque(true);
+              lbl.setForeground(Color.white);
+             //Spane.add(lbl);
+            }
+             if(Mnode.isSnake){
+            lbl.setBackground(Color.red);
+             lbl.setText("Btn "+Mnode.PostionShiftGetter()+" Snake Downby "+Mnode.value);
+              lbl.setOpaque(true);
+              lbl.setForeground(Color.white);
+              //Spane.add(lbl);
+            }
+            labelPanel.add(lbl);
             /*System.out.println("is lader"+Mnode.isLadder);
             System.out.println("is snakke"+Mnode.isSnake);
             System.out.println(Mnode.PostionShiftGetter());
             System.out.println(Mnode.value);
         */}
-       
+       Spane.setViewportView(labelPanel);
+    Spane.setBackground(Color.white);
+       return Spane;
      }
      public int MoveAction(int dicechance,MyNode currentnode){
         return 0;
@@ -139,6 +165,7 @@ public class BusinessLogic {
        for(Component comp:ListOfComponents){
            if(comp instanceof JButton btn){
                 String text = btn.getText();
+                
                 if (text != null && !text.equals("Start") && !text.equals("End")) {
                      var targetBounds = ListOfComponents[Node.PostionShiftGetter()].getBounds();
                    int tesxt;
@@ -150,6 +177,8 @@ public class BusinessLogic {
                    if(tesxt==Node.value){
                        if(Node.isLadder){
                             pane.addLine(Color.GREEN, x1, y1, x2, y2);
+                            btn.setToolTipText("iam a Ladder");
+                            btn.setBackground(Color.blue);
                            /*  JComponent cmp = new JComponent(){
                            @Override
                            protected void paintComponent(Graphics g) {
@@ -177,6 +206,8 @@ public class BusinessLogic {
                        }
                        if(Node.isSnake){
                              pane.addLine(Color.red, x1, y1, x2, y2);
+                             btn.setToolTipText("iam a Snake");
+                               btn.setBackground(Color.red);
                            /*    JComponent Sncmp = new JComponent(){
                            @Override
                            protected void paintComponent(Graphics g) {

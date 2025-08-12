@@ -13,7 +13,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import victroirauniversirty.coursework.supportAccess.MyNode;
 
@@ -56,7 +58,10 @@ public class GuiClass {
      // results number
      JTextField text = new JTextField();
      JTextField text2 = new JTextField();
+      JTextArea  text3 = new JTextArea ();
+      text3.setText("Rules of the game \n Press start \n role dice \nif you land on snake \nyou will be pushed back \nif you land on ladder\nyou wil be elevated \notherwise will move steps\n based on the dice value");
      text.setBackground(Color.MAGENTA);
+      text3.setBounds(550, 150, 200, 400);
      //text.setFont(Font.ROMAN_BASELINE);
      text.setBounds(450,250,100,100);
      text2.setBackground(Color.lightGray);
@@ -64,13 +69,18 @@ public class GuiClass {
      text.setEditable(false);
      pane.add(text2);
      pane.add(text);
+     pane.add(text3);
+     
        GameStarter.addActionListener(e -> {
              if(!DiceRoller.isEnabled()){
                  DiceRoller.setEnabled(true);
                   GameStarter.setText("Stop Dice");
                   Constructors(BgPAne);
                   
-                   Logicdefault.boxpopulator(BgPAne);
+                  var SpecialBtns =  Logicdefault.boxpopulator(BgPAne);
+                 
+                  
+                  pane.add(SpecialBtns);
                     BgPAne.repaint();
                  // GameStarter.setBackground(Color.red);
              }
@@ -149,6 +159,7 @@ public class GuiClass {
               }
               
           }
+          //pane.setOpaque(false);
       //System.out.println(pane.getSize());
     }
     //// movin here does 3 times traversing 
@@ -164,13 +175,13 @@ public class GuiClass {
              if(res.isSnake){
             this.CurrentPosition-=res.PostionShiftGetter();
              shuffle(btnslists);
-            return ("Snkd by "+String.valueOf(res.PostionShiftGetter()+ "/n upto"+CurrentPosition));
+            return ("Snkd by \n"+String.valueOf(res.PostionShiftGetter()+ " upto"+CurrentPosition));
             }
             if(res.isLadder){
             
                 this.CurrentPosition+=res.PostionShiftGetter();
                 shuffle(btnslists);
-                return("Ldr by "+String.valueOf(res.PostionShiftGetter()+ "/n upto"+CurrentPosition));
+                return("Ldr by \n"+String.valueOf(res.PostionShiftGetter()+ " upto"+CurrentPosition));
 
             }
             else{
@@ -182,6 +193,16 @@ public class GuiClass {
             }
        
         } catch (Exception ex) {
+             JOptionPane.showMessageDialog(
+        null,
+        "OverFlow NextNode is null! Challenge accepted game won",
+        "Game Notice",
+        JOptionPane.ERROR_MESSAGE
+    );
+    System.out.println("Over FLowe Challenge triggered");
+ 
+  
+            System.out.println("Over FLow detected");
              return("Game Over you finished");
         }
 
@@ -205,8 +226,15 @@ public class GuiClass {
                     int post = Integer.parseInt(btntext);
                     if(CurrentPosition<=0){
                         //CurrentPosition = Math.abs(CurrentPosition);
-                        CurrentPosition = 0;
-                        continue;
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Underflow! Challenge got turned back to start",
+                                "Game Notice",
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                            System.out.println("UnderFlow Challenge triggered");
+                            CurrentPosition = 0;
+                            continue;
                     }
                     if(CurrentPosition==post){
                         
